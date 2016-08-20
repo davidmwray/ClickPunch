@@ -28,7 +28,7 @@ public class UpgradeManager : MonoBehaviour {
             click.exp -= cost;
             count += 1;
             click.damagePerClick += damagePower;
-            cost = Mathf.Round (baseCost * Mathf.Pow(1.25f, count));
+            cost = Mathf.Round(cost*1.5f);
         }
     }
 
