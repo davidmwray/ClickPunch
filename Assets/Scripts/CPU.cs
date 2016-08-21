@@ -15,7 +15,7 @@ public class CPU : MonoBehaviour
     public int cpuDefense;
     public Random rng = new Random();
     public float attackTimer = 10.0f;
-    
+
     // Use this for initialization
     void Start()
     {
@@ -30,12 +30,15 @@ public class CPU : MonoBehaviour
         //cpuDefenseDisplay.text = "CPU Defense: " + cpuDefense;
 
         attackTimer -= Time.deltaTime;
-        
+        var time = System.DateTime.Now;
+
         if (attackTimer <= 0f)
-        { 
+        {
             player.playerHp -= cpuDamage;
+            click.log.text = time.ToString("HH:mm:ss:tt") + "\n-5 HP" + click.log.text;
             attackTimer = rng.Next(1, 11);
         }
 
     }
 }
+

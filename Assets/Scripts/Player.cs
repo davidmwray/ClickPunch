@@ -7,22 +7,25 @@ public class Player : MonoBehaviour
     public UnityEngine.UI.Text playerHealthDisplay;
     public UnityEngine.UI.Text playerDefenseDisplay;
     public UnityEngine.UI.Text playerDamageDisplay;
+    public UnityEngine.UI.Text playerExpDisplay;
     public double playerHp = 100;
     public float playerDamage;
     public int playerDefense;
-    public int playerExp;
+    public float playerExp;
 
-	// Use this for initialization
-	void Start ()
+    // Use this for initialization
+    void Start()
     {
-	    
-	}
-	
-	// Update is called once per frame
-	void Update ()
+
+    }
+
+    // Update is called once per frame
+    void Update()
     {
         playerHealthDisplay.text = "HP: " + (playerHp);
         playerDamageDisplay.text = "Damage Per Hit: " + click.damagePerClick;
         playerDefenseDisplay.text = "Defense: " + playerDefense;
-	}
+        playerExpDisplay.text = "EXP Points: " + playerExp;
+    }
 }
+

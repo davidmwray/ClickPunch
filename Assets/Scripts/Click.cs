@@ -8,17 +8,17 @@ public class Click : MonoBehaviour
     public UnityEngine.UI.Text hpDisplay;
     public UnityEngine.UI.Text damageDisplay;
     public UnityEngine.UI.Text expDisplay;
-    public float exp = 0.00f;
+    public UnityEngine.UI.Text log;
     public float damagePerClick = 1.00f;
     public int count = 0;
     public int clickCount = 0;
 
-	void Start ()
+    void Start()
     {
-	
-	}
-	
-	void Update ()
+
+    }
+
+    void Update()
     {
         if (cpu.cpuHp - player.playerDamage <= -1)
         {
@@ -28,7 +28,8 @@ public class Click : MonoBehaviour
                 case 1:
                     cpu.cpuHp = (cpu.cpuHp * 10);
                     damagePerClick = Mathf.Round(damagePerClick * 2);
-                    exp = exp + 10;
+                    player.playerExp = player.playerExp + 10;
+                    log.text = "\nYou defeated trump." + log.text;
                     break;
                 case 2:
                     cpu.cpuHp = (cpu.cpuHp * 10);
@@ -39,10 +40,10 @@ public class Click : MonoBehaviour
                     damagePerClick = Mathf.Round(damagePerClick * 1.25f);
                     break;
                 case 4:
-                    
+
                     break;
                 case 5:
-                    
+
                     break;
                 default:
                     print("you Win");
@@ -55,17 +56,19 @@ public class Click : MonoBehaviour
     public void Clicked()
     {
         player.playerDamage += damagePerClick;
-
+        log.text = "\nYou did " + damagePerClick + " damage." +log.text;
         clickCount++;
 
         if (clickCount == 10)
         {
-            exp++;
+            player.playerExp++;
+            log.text = "\nYou've gained 1 Exp Point." + log.text;
             clickCount = clickCount * 0;
         }
-            
-            
-            
-        
+
+
+
+
     }
 }
+
