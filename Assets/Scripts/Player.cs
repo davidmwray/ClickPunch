@@ -8,10 +8,12 @@ public class Player : MonoBehaviour
     public UnityEngine.UI.Text playerDefenseDisplay;
     public UnityEngine.UI.Text playerDamageDisplay;
     public UnityEngine.UI.Text playerExpDisplay;
-    public double playerHp = 100;
-    public float playerDamage;
+    public float StartingHP = 1f;
+    public float HP = 1f;
+    public float StartingDamage = 1f;
+    public float Damage = 1f;
     public int playerDefense;
-    public float playerExp;
+    public float EXP;
 
     // Use this for initialization
     void Start()
@@ -22,10 +24,28 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHealthDisplay.text = "HP: " + (playerHp);
-        playerDamageDisplay.text = "Damage Per Hit: " + click.damagePerClick;
+        playerHealthDisplay.text = "HP: " + (HP);
+        playerDamageDisplay.text = "Damage Per Hit: " + Damage;
         playerDefenseDisplay.text = "Defense: " + playerDefense;
-        playerExpDisplay.text = "EXP Points: " + playerExp;
+        playerExpDisplay.text = "EXP Points: " + EXP;
+    }
+
+    public void SetUpAfterDeath(float hp, float damage)
+    {
+        StartingHP = hp;
+        HP = StartingHP;
+
+        Damage = Mathf.Max(1f, damage);
+    }
+
+    public void TakeDamage(float damage)
+    {
+        HP -= damage;
+        if (HP <= 0)
+        {
+            HP = 0;
+            GameManager.Inst.OnPlayerDeath();
+        }
     }
 }
 

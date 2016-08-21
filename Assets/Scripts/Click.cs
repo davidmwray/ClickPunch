@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
+using System;
 public class Click : MonoBehaviour
 {
     public Player player;
@@ -8,10 +9,10 @@ public class Click : MonoBehaviour
     public UnityEngine.UI.Text hpDisplay;
     public UnityEngine.UI.Text damageDisplay;
     public UnityEngine.UI.Text expDisplay;
-    public UnityEngine.UI.Text log;
-    public float damagePerClick = 1.00f;
-    public int count = 0;
     public int clickCount = 0;
+    bool debug = false;
+
+    public event EventHandler OnClick;
 
     void Start()
     {
@@ -20,53 +21,36 @@ public class Click : MonoBehaviour
 
     void Update()
     {
-        if (cpu.cpuHp - player.playerDamage <= -1)
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            count++;
-            switch (count)
-            {
-                case 1:
-                    cpu.cpuHp = (cpu.cpuHp * 10);
-                    damagePerClick = Mathf.Round(damagePerClick * 2);
-                    player.playerExp = player.playerExp + 10;
-                    log.text = "\nYou defeated trump." + log.text;
-                    break;
-                case 2:
-                    cpu.cpuHp = (cpu.cpuHp * 10);
-                    damagePerClick = Mathf.Round(damagePerClick * 1.25f);
-                    break;
-                case 3:
-                    cpu.cpuHp = (cpu.cpuHp * 10);
-                    damagePerClick = Mathf.Round(damagePerClick * 1.25f);
-                    break;
-                case 4:
-
-                    break;
-                case 5:
-
-                    break;
-                default:
-                    print("you Win");
-                    break;
-            }
-
+            debug =! debug;
         }
     }
 
     public void Clicked()
     {
-        player.playerDamage += damagePerClick;
-        log.text = "\nYou did " + damagePerClick + " damage." +log.text;
+        
+        var damage = player.Damage;
+        if (debug)
+        {
+            damage = .25f *cpu.StartingHP;
+        }
+        cpu.TakeDamage(damage);
+        
         clickCount++;
 
         if (clickCount == 10)
         {
-            player.playerExp++;
-            log.text = "\nYou've gained 1 Exp Point." + log.text;
+            player.EXP++;
             clickCount = clickCount * 0;
+
+            Log.LogEntry("You've gained 1 Exp Point.");
         }
 
-
+        if (OnClick != null)
+        {
+            OnClick(this, EventArgs.Empty);
+        }
 
 
     }

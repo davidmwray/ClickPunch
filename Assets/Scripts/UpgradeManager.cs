@@ -24,11 +24,11 @@ public class UpgradeManager : MonoBehaviour
 
     public void PurchasedUpgrade()
     {
-        if (player.playerExp >= cost)
+        if (player.EXP >= cost)
         {
-            player.playerExp -= cost;
+            player.EXP -= cost;
             count += 1;
-            click.damagePerClick += damagePower;
+            player.Damage += damagePower;
             cost = Mathf.Round(cost * 1.5f);
         }
     }
