@@ -8,9 +8,9 @@ public class UpgradeManager : MonoBehaviour
     public Player player;
     public UnityEngine.UI.Text itemInfo;
     public float cost;
-    public int count = 0;
     public int damagePower;
     public string itemName;
+    public int UpgradeCount = 0;
 
     void start()
     {
@@ -19,15 +19,22 @@ public class UpgradeManager : MonoBehaviour
 
     void Update()
     {
-        itemInfo.text = itemName + "\nDamage +" + damagePower + "\nCost: " + cost + " EXP";
+        if (UpgradeCount == 10)
+        {
+            itemInfo.text = "MAXED OUT";
+        }
+        else
+        {
+            itemInfo.text = itemName + "\nDamage +" + damagePower + "\nCost: " + cost + " EXP";
+        }
     }
 
     public void PurchasedUpgrade()
     {
-        if (player.EXP >= cost)
+        if (player.EXP >= cost && UpgradeCount < 10)
         {
             player.EXP -= cost;
-            count += 1;
+            UpgradeCount++;
             player.Damage += damagePower;
             cost = Mathf.Round(cost * 1.5f);
         }

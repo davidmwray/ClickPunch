@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public UnityEngine.UI.Text playerExpDisplay;
     public float StartingHP = 1f;
     public float HP = 1f;
+    public float MaxHP = 100f;
     public float StartingDamage = 1f;
     public float Damage = 1f;
     public int playerDefense;
@@ -24,7 +25,7 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        playerHealthDisplay.text = "HP: " + (HP);
+        playerHealthDisplay.text = "HP: " + (HP) + "/" + MaxHP ;
         playerDamageDisplay.text = "Damage Per Hit: " + Damage;
         playerDefenseDisplay.text = "Defense: " + playerDefense;
         playerExpDisplay.text = "EXP Points: " + EXP;

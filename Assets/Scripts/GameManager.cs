@@ -31,7 +31,7 @@ public class GameManager : MonoBehaviour
         EnemyCount++;
         cpu.SetUpNextOpponent (cpu.StartingHP * 10, cpu.StartingDamage *3);
         Log.LogEntry("You did it!");
-        player.EXP = player.EXP + 10;
+        player.EXP = player.EXP + (cpu.StartingHP *.01f);
         player.Damage = Mathf.Round(player.Damage * 1.2f);
     }
 
